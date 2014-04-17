@@ -820,6 +820,9 @@ def cmd_rrdelete(args):
     node = zone.get_node(args.rr)
     if node:
         if len(node.rdatasets) > 1 and not args.type:
+            for rds in node.rdatasets:
+                for rdtype in rds.items:
+                    print rdtype
             rtypes = [ dns.rdatatype.to_text(rds.rdtype) for rds in node.rdatasets ]
             logging.warning('Ambigious record - several resource types for record %r found: %s' % (args.rr, ', '.join(rtypes)))
         else:
